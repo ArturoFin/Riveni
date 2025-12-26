@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Ti, La niña más linda🌻</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ==================== VARIABLES CSS ==================== */
+        :root {
+            --color-gold: #D4AF37;
+            --color-yellow: #FFD700;
+            --color-moss: #8B7355;
+            --color-cream: #FFF8DC;
+            --color-dark: #2C2416;
+            --color-sunset: #FF6B35;
+            --font-title: 'Playfair Display', serif;
+            --font-body: 'Montserrat', sans-serif;
+        }
+
+        /* ==================== RESET Y BASE ==================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, #1a1410 0%, #2C2416 50%, #3d2f1f 100%);
+            color: var(--color-cream);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ==================== PÉTALOS FLOTANTES ==================== */
+        .petals-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .petal {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: radial-gradient(ellipse at center, var(--color-yellow) 0%, var(--color-gold) 100%);
+            border-radius: 50% 0 50% 0;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            z-index: 2;
+            background: radial-gradient(ellipse at center, rgba(255,215,0,0.1) 0%, transparent 70%);
+        }
+
+        .hero-sunflower {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            animation: rotate3d 20s linear infinite;
+            opacity: 0.15;
+            filter: blur(2px);
+        }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateY(360deg) rotateZ(360deg); }
+        }
+
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--color-gold), var(--color-yellow), var(--color-sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 40px rgba(255,215,0,0.3);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.5rem);
+            color: var(--color-cream);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        /* ==================== REPRODUCTOR DE MÚSICA ==================== */
+        .music-player {
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--color-gold);
+            border-radius: 20px;
+            padding: 1.5rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .music-player:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .music-player h3 {
+            font-family: var(--font-title);
+            color: var(--color-yellow);
+            margin-bottom: 1rem;
+        }
+
+        /* ==================== LÍNEA DE TIEMPO ==================== */
+        .timeline {
+            padding: 5rem 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 5vw, 4rem);
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255,215,0,0.4);
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .month-card {
+            background: linear-gradient(135deg, rgba(212,175,55,0.2) 0%, rgba(139,115,85,0.2) 100%);
+            border: 2px solid var(--color-gold);
+            border-radius: 20px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .month-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .month-card:hover::before {
+            opacity: 1;
+        }
+
+        .month-card:hover {
+            transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.5);
+            border-color: var(--color-yellow);
+        }
+
+        .month-card h3 {
+            font-family: var(--font-title);
+            font-size: 1.8rem;
+            color: var(--color-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .month-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .month-message {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            color: var(--color-cream);
+        }
+
+        .month-card.revealed .month-message {
+            opacity: 1;
+            max-height: 300px;
+            margin-top: 1rem;
+        }
+
+        /* ==================== GALERÍA DE VIDEO ==================== */
+        .video-gallery {
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .video-gallery h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 3rem;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255,215,0,0.4);
+        }
+
+        .video-frame {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(212,175,55,0.3), rgba(139,115,85,0.3));
+            border-radius: 30px;
+            border: 3px solid var(--color-gold);
+            box-shadow: 0 20px 80px rgba(212, 175, 55, 0.4),
+                        inset 0 0 60px rgba(255,215,0,0.1);
+        }
+
+        .video-frame::before,
+        .video-frame::after {
+            content: '🌻';
+            position: absolute;
+            font-size: 3rem;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .video-frame::before {
+            top: -1rem;
+            left: -1rem;
+        }
+
+        .video-frame::after {
+            bottom: -1rem;
+            right: -1rem;
+            animation-delay: 1s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2) rotate(10deg); }
+        }
+
+        .video-frame iframe {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            border: none;
+        }
+
+        /* ==================== GRID DE VIDEOS SECUNDARIOS ==================== */
+        .video-title {
+            font-family: var(--font-title);
+            color: var(--color-yellow);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .main-video {
+            margin-bottom: 4rem;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(139,115,85,0.15));
+            border: 2px solid var(--color-gold);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .video-card.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .video-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at top right, rgba(255,215,0,0.2) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            border-color: var(--color-yellow);
+        }
+
+        .video-card:hover::before {
+            opacity: 1;
+        }
+
+        .video-card-inner {
+            padding: 1.5rem;
+        }
+
+        .video-card h4 {
+            font-family: var(--font-title);
+            font-size: 1.3rem;
+            color: var(--color-yellow);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, rgba(44,36,22,0.9), rgba(60,47,31,0.9));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(44,36,22,0.95), rgba(60,47,31,0.95));
+            border-radius: 10px;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .video-placeholder.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .play-button {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-yellow));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            margin-bottom: 1rem;
+        }
+
+        .play-button:hover {
+            transform: scale(1.15);
+            box-shadow: 0 12px 35px rgba(212, 175, 55, 0.7);
+        }
+
+        .play-button:active {
+            transform: scale(1.05);
+        }
+
+        .placeholder-text {
+            color: var(--color-cream);
+            font-size: 1.1rem;
+            opacity: 0.9;
+            text-align: center;
+            font-family: var(--font-title);
+        }
+
+        .video-description {
+            margin-top: 1rem;
+            text-align: center;
+            color: var(--color-cream);
+            opacity: 0.8;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+
+        /* ==================== JUEGO PIEDRA, PAPEL O TIJERA ==================== */
+        .game-section {
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .game-section h2 {
+            font-family: var(--font-title);
+            font-size: clamp(2rem, 5vw, 4rem);
+            margin-bottom: 2rem;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255,215,0,0.4);
+        }
+
+        .game-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, rgba(212,175,55,0.2), rgba(139,115,85,0.2));
+            border: 3px solid var(--color-gold);
+            border-radius: 30px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+        }
+
+        .game-choices {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .choice-btn {
+            width: 120px;
+            height: 120px;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--color-gold), var(--color-yellow));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            transform-style: preserve-3d;
+        }
+
+        .choice-btn:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.6);
+        }
+
+        .choice-btn:active {
+            transform: translateY(-5px) scale(1.05);
+        }
+
+        .game-result {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-title);
+        }
+
+        .easter-egg {
+            display: none;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,107,53,0.3));
+            border-radius: 20px;
+            border: 2px solid var(--color-yellow);
+            animation: easterEggAppear 0.8s ease-out;
+        }
+
+        @keyframes easterEggAppear {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .easter-egg.show {
+            display: block;
+        }
+
+        .easter-egg h3 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--color-yellow);
+            margin-bottom: 1rem;
+        }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 768px) {
+            .video-frame iframe {
+                height: 300px;
+            }
+
+            .videos-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .choice-btn {
+                width: 90px;
+                height: 90px;
+                font-size: 2rem;
+            }
+
+            .game-container {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* ==================== SCROLL REVEAL ==================== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Contenedor de pétalos flotantes -->
+    <div class="petals-container" id="petalsContainer"></div>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <svg class="hero-sunflower" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="15" fill="var(--color-moss)"/>
+            <g id="petals">
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(45 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(90 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(135 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(180 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(225 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(270 50 50)"/>
+                <ellipse cx="50" cy="25" rx="8" ry="15" fill="var(--color-yellow)" transform="rotate(315 50 50)"/>
+            </g>
+        </svg>
+        <h1>Para Ti, La niña más linda🌻</h1>
+        <p>Como los girasoles siguen al sol, mi corazón te sigue a ti</p>
+        
+        <div class="music-player">
+            <h3>🎵 Nuestra Canción Especial</h3>
+            <iframe
+    src="https://www.youtube.com/embed/vtL89Ih7lwM"
+    title="Nuestra Canción Especial"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+
+
+
+        </div>
+    </section>
+
+    <!-- LÍNEA DE TIEMPO MENSUAL -->
+    <section class="timeline reveal">
+        <h2>Nuestros 12 Meses de Amor</h2>
+        <div class="timeline-grid">
+            <!-- Enero -->
+            <div class="month-card" data-month="enero">
+                <span class="month-icon">🎆</span>
+                <h3>Enero</h3>
+                <p style="opacity: 0.7;">Año Nuevo</p>
+                <div class="month-message">
+                    "Como cada Año Nuevo, tú eres mi mejor resolución. Que este año sigamos escribiendo nuestra historia juntos, página a página."
+                </div>
+            </div>
+
+            <!-- Febrero -->
+            <div class="month-card" data-month="febrero">
+                <span class="month-icon">💝</span>
+                <h3>Febrero</h3>
+                <p style="opacity: 0.7;">San Valentín</p>
+                <div class="month-message">
+                    "El 14 de febrero no es solo un día en el calendario, es cada día contigo. Eres mi amor eterno."
+                </div>
+            </div>
+
+            <!-- Marzo -->
+            <div class="month-card" data-month="marzo">
+                <span class="month-icon">🌸</span>
+                <h3>Marzo</h3>
+                <p style="opacity: 0.7;">Primavera</p>
+                <div class="month-message">
+                    "Como las flores en primavera, mi amor por ti florece cada día más hermoso y radiante."
+                </div>
+            </div>
+
+            <!-- Abril -->
+            <div class="month-card" data-month="abril">
+                <span class="month-icon">🌧️</span>
+                <h3>Abril</h3>
+                <p style="opacity: 0.7;">Renovación</p>
+                <div class="month-message">
+                    "Las lluvias de abril traen las flores de mayo, pero tú traes felicidad a todos mis días."
+                </div>
+            </div>
+
+            <!-- Mayo -->
+            <div class="month-card" data-month="mayo">
+                <span class="month-icon">🌹</span>
+                <h3>Mayo</h3>
+                <p style="opacity: 0.7;">Día de las Madres</p>
+                <div class="month-message">
+                    "En mayo celebramos el amor más puro, y tú eres la personificación de ese amor en mi vida."
+                </div>
+            </div>
+
+            <!-- Junio -->
+            <div class="month-card" data-month="junio">
+                <span class="month-icon">☀️</span>
+                <h3>Junio</h3>
+                <p style="opacity: 0.7;">Verano</p>
+                <div class="month-message">
+                    "El verano llegó, y con él, la luz que iluminas en mi vida cada día del año."
+                </div>
+            </div>
+
+            <!-- Julio -->
+            <div class="month-card" data-month="julio">
+                <span class="month-icon">🎇</span>
+                <h3>Julio</h3>
+                <p style="opacity: 0.7;">Fuegos Artificiales</p>
+                <div class="month-message">
+                    "Como los fuegos artificiales iluminan el cielo, tú iluminas mi mundo con tu sonrisa."
+                </div>
+            </div>
+
+            <!-- Agosto -->
+            <div class="month-card" data-month="agosto">
+                <span class="month-icon">🌅</span>
+                <h3>Agosto</h3>
+                <p style="opacity: 0.7;">Atardeceres</p>
+                <div class="month-message">
+                    "Cada atardecer de agosto me recuerda que los finales pueden ser hermosos, pero lo nuestro no tiene fin."
+                </div>
+            </div>
+
+            <!-- Septiembre -->
+            <div class="month-card" data-month="septiembre">
+                <span class="month-icon">🍂</span>
+                <h3>Septiembre</h3>
+                <p style="opacity: 0.7;">Otoño</p>
+                <div class="month-message">
+                    "Las hojas caen en otoño, pero mi amor por ti solo crece y se fortalece con el tiempo."
+                </div>
+            </div>
+
+            <!-- Octubre -->
+            <div class="month-card" data-month="octubre">
+                <span class="month-icon">🎃</span>
+                <h3>Octubre</h3>
+                <p style="opacity: 0.7;">Magia</p>
+                <div class="month-message">
+                    "Octubre trae magia y misterio, pero la verdadera magia es tenerte en mi vida cada día."
+                </div>
+            </div>
+
+            <!-- Noviembre -->
+            <div class="month-card" data-month="noviembre">
+                <span class="month-icon">🙏</span>
+                <h3>Noviembre</h3>
+                <p style="opacity: 0.7;">Gratitud</p>
+                <div class="month-message">
+                    "En este mes de agradecimiento, doy gracias por cada momento, cada sonrisa, cada 'te amo' contigo."
+                </div>
+            </div>
+
+            <!-- Diciembre -->
+            <div class="month-card" data-month="diciembre">
+                <span class="month-icon">🎄</span>
+                <h3>Diciembre</h3>
+                <p style="opacity: 0.7;">Navidad</p>
+                <div class="month-message">
+                    "La Navidad es mágica, pero tú eres el mejor regalo que la vida pudo darme. Feliz Navidad, mi amor."
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERÍA DE VIDEOS -->
+    <section class="video-gallery reveal">
+        <h2>Nuestra Colección de Momentos</h2>
+        
+        <!-- Video Principal -->
+        <div class="video-frame main-video">
+            <h3 class="video-title">💖 Video Principal - XD</h3>
+            <div class="video-wrapper" style="padding-bottom: 0; height: 500px;">
+                <div class="video-placeholder" id="mainVideoPlaceholder">
+                    <button class="play-button" onclick="loadMainVideo()">▶️</button>
+                    <p class="placeholder-text">Haz clic para reproducir</p>
+                </div>
+                <iframe
+    src="https://www.youtube.com/embed/GKIaDFwt4WQ"
+    title="Video Principal"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen>
+</iframe>
+
+            </div>
+        </div>
+
+        <!-- Grid de Videos Secundarios -->
+        <div class="videos-grid">
+            <!-- Video 1 -->
+            <div class="video-card reveal-video">
+                <div class="video-card-inner">
+                    <h4>🌅 Primer video POWER BI</h4>
+                    <div class="video-wrapper">
+                        <div class="video-placeholder" id="videoPlaceholder1">
+                            <button class="play-button" onclick="loadVideo(1)">▶️</button>
+                            <p class="placeholder-text">Próximamente...</p>
+                        </div>
+                        <iframe 
+                            id="videoFrame1"
+                            style="display: none;"
+                            src="" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <p class="video-description">............</p>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="video-card reveal-video">
+                <div class="video-card-inner">
+                    <h4>🎂 Segundo video POWER BI</h4>
+                    <div class="video-wrapper">
+                        <div class="video-placeholder" id="videoPlaceholder2">
+                            <button class="play-button" onclick="loadVideo(2)">▶️</button>
+                            <p class="placeholder-text">Próximamente...</p>
+                        </div>
+                        <iframe 
+                            id="videoFrame2"
+                            style="display: none;"
+                            src="" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+            <!-- Video 3 -->
+        <div class="video-card reveal-video">
+            <div class="video-card-inner">
+                <h4>🌻 Tercer video POWER BI</h4>
+                <div class="video-wrapper">
+                    <div class="video-placeholder" id="videoPlaceholder3">
+                        <button class="play-button" onclick="loadVideo(3)">▶️</button>
+                        <p class="placeholder-text">Próximamente...</p>
+                    </div>
+                    <iframe 
+                        id="videoFrame3"
+                        style="display: none;"
+                        src="" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="video-description">............</p>
+            </div>
+        </div>
+
+        <!-- Video 4 -->
+        <div class="video-card reveal-video">
+            <div class="video-card-inner">
+                <h4>💑 Cuarto video POWER BI</h4>
+                <div class="video-wrapper">
+                    <div class="video-placeholder" id="videoPlaceholder4">
+                        <button class="play-button" onclick="loadVideo(4)">▶️</button>
+                        <p class="placeholder-text">Próximamente...</p>
+                    </div>
+                    <iframe 
+                        id="videoFrame4"
+                        style="display: none;"
+                        src="" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="video-description">............</p>
+            </div>
+        </div>
+
+        <!-- Video 5 -->
+        <div class="video-card reveal-video">
+            <div class="video-card-inner">
+                <h4>🎵 Quinto video POWER BI</h4>
+                <div class="video-wrapper">
+                    <div class="video-placeholder" id="videoPlaceholder5">
+                        <button class="play-button" onclick="loadVideo(5)">▶️</button>
+                        <p class="placeholder-text">Próximamente...</p>
+                    </div>
+                    <iframe 
+                        id="videoFrame5"
+                        style="display: none;"
+                        src="" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="video-description">............</p>
+            </div>
+        </div>
+
+        <!-- Video 6 -->
+        <div class="video-card reveal-video">
+            <div class="video-card-inner">
+                <h4>🌟 Sexto video POWER BI</h4>
+                <div class="video-wrapper">
+                    <div class="video-placeholder" id="videoPlaceholder6">
+                        <button class="play-button" onclick="loadVideo(6)">▶️</button>
+                        <p class="placeholder-text">Próximamente...</p>
+                    </div>
+                    <iframe 
+                        id="videoFrame6"
+                        style="display: none;"
+                        src="" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <p class="video-description">............</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- JUEGO PIEDRA, PAPEL O TIJERA -->
+<section class="game-section reveal">
+    <h2>El Juego del Destino</h2>
+    <div class="game-container">
+        <p style="font-size: 1.2rem; margin-bottom: 1rem;">
+            El destino dice que siempre ganarás, porque en mi corazón, tú siempre ganas ❤️
+        </p>
+        <div class="game-choices">
+            <button class="choice-btn" data-choice="rock">✊</button>
+            <button class="choice-btn" data-choice="paper">✋</button>
+            <button class="choice-btn" data-choice="scissors">✌️</button>
+        </div>
+        <div class="game-result" id="gameResult"></div>
+        <div class="easter-egg" id="easterEgg">
+            <h3>🌻 ¡Mensaje Secreto Desbloqueado! 🌻</h3>
+            <p style="font-size: 1.2rem; line-height: 1.8;">
+                Como en este juego, en mi vida siempre ganas tú. Eres mi victoria más hermosa, 
+                mi premio más preciado, mi triunfo más grande. Porque amarte no es un juego de azar, 
+                es una elección que hago cada día con el corazón. Te amo más que a nada en este mundo.
+                <br><br>
+                🌅 Con amor eterno, bajo los girasoles y atardeceres 🌻
+            </p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // ==================== PÉTALOS FLOTANTES ====================
+    function createPetals() {
+        const container = document.getElementById('petalsContainer');
+        const petalCount = 30;
+
+        for (let i = 0; i < petalCount; i++) {
+            const petal = document.createElement('div');
+            petal.classList.add('petal');
+            petal.style.left = Math.random() * 100 + '%';
+            petal.style.animationDuration = (Math.random() * 10 + 10) + 's';
+            petal.style.animationDelay = Math.random() * 5 + 's';
+            container.appendChild(petal);
+        }
+    }
+
+    // ==================== CARGA DE VIDEOS ====================
+    function loadMainVideo() {
+        const placeholder = document.getElementById('mainVideoPlaceholder');
+        const iframe = document.getElementById('mainVideoFrame');
+        
+        // URL del video principal
+        iframe.src = 'https://www.youtube.com/embed/FQmNXNh8w2k?autoplay=1';
+        iframe.style.display = 'block';
+        placeholder.classList.add('hidden');
+    }
+
+    function loadVideo(videoNumber) {
+        const placeholder = document.getElementById(`videoPlaceholder${videoNumber}`);
+        const iframe = document.getElementById(`videoFrame${videoNumber}`);
+        
+        // Aquí puedes agregar URLs específicas para cada video cuando las tengas
+        // Por ahora mostrará un mensaje
+        const videoUrls = {
+            1: '', // Agrega aquí la URL del video 1
+            2: '', // Agrega aquí la URL del video 2
+            3: '', // Agrega aquí la URL del video 3
+            4: '', // Agrega aquí la URL del video 4
+            5: '', // Agrega aquí la URL del video 5
+            6: ''  // Agrega aquí la URL del video 6
+        };
+        
+        if (videoUrls[videoNumber]) {
+            iframe.src = videoUrls[videoNumber] + '?autoplay=1';
+            iframe.style.display = 'block';
+            placeholder.classList.add('hidden');
+        } else {
+            // Mensaje temporal si no hay video
+            placeholder.querySelector('.placeholder-text').textContent = '¡Pronto agregaré este video especial! 💖';
+        }
+    }
+
+    // ==================== SCROLL REVEAL ====================
+    function revealOnScroll() {
+        const reveals = document.querySelectorAll('.reveal');
+        const videoCards = document.querySelectorAll('.reveal-video');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        reveals.forEach(reveal => {
+            observer.observe(reveal);
+        });
+
+        // Animación escalonada para las tarjetas de video
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('active');
+                    }, index * 150); // Retraso escalonado
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        videoCards.forEach(card => {
+            videoObserver.observe(card);
+        });
+    }
+
+    // ==================== TARJETAS MENSUALES ====================
+    function setupMonthCards() {
+        const cards = document.querySelectorAll('.month-card');
+        
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('revealed');
+            });
+        });
+    }
+
+    // ==================== JUEGO PIEDRA, PAPEL O TIJERA ====================
+    function setupGame() {
+        const choices = document.querySelectorAll('.choice-btn');
+        const resultDiv = document.getElementById('gameResult');
+        const easterEgg = document.getElementById('easterEgg');
+        let hasWon = false;
+
+        const winningMoves = {
+            'rock': 'scissors',
+            'paper': 'rock',
+            'scissors': 'paper'
+        };
+
+        const emojis = {
+            'rock': '✊',
+            'paper': '✋',
+            'scissors': '✌️'
+        };
+
+        choices.forEach(choice => {
+            choice.addEventListener('click', function() {
+                const playerChoice = this.dataset.choice;
+                
+                // Deshabilitar botones temporalmente
+                choices.forEach(btn => btn.style.pointerEvents = 'none');
+                
+                resultDiv.innerHTML = '🤔 Pensando...';
+                
+                setTimeout(() => {
+                    // La IA siempre elige la opción perdedora
+                    const aiChoice = winningMoves[playerChoice];
+                    
+                    resultDiv.innerHTML = `
+                        <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
+                            <div style="font-size: 2rem;">
+                                Tú: ${emojis[playerChoice]} vs IA: ${emojis[aiChoice]}
+                            </div>
+                            <div style="color: var(--color-yellow); font-size: 2rem;">
+                                ✨ ¡GANASTE! ✨
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Mostrar el easter egg después de la primera victoria
+                    if (!hasWon) {
+                        setTimeout(() => {
+                            easterEgg.classList.add('show');
+                            hasWon = true;
+                        }, 1000);
+                    }
+                    
+                    // Reactivar botones
+                    choices.forEach(btn => btn.style.pointerEvents = 'auto');
+                }, 1500);
+            });
+        });
+    }
+
+    // ==================== INICIALIZACIÓN ====================
+    document.addEventListener('DOMContentLoaded', function() {
+        createPetals();
+        revealOnScroll();
+        setupMonthCards();
+        setupGame();
+    });
+</script>        
