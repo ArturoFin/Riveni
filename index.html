@@ -184,7 +184,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            height: 100%; /* Asegura que todas las tarjetas tengan igual altura base */
+            height: 100%;
         }
 
         .month-card::before {
@@ -223,35 +223,24 @@
             margin-bottom: 1rem;
         }
 
-        /* ==========================================
-           CAMBIO CLAVE AQUÍ: ESTILOS MENSAJE LARGO
-           ========================================== */
+        /* ESTILOS MENSAJE LARGO */
         .month-message {
             width: 100%;
-            max-width: 100%; /* Asegura que no rompa el contenedor */
-            
-            /* Estado inicial oculto */
+            max-width: 100%;
             opacity: 0; 
             visibility: hidden;
             max-height: 0;
-            
-            /* Transición suave */
             transition: all 0.6s ease;
-            
-            /* Tipografía */
             font-size: 0.95rem;
             line-height: 1.6;
             color: var(--color-cream);
-            text-align: left; /* Mejor lectura para textos largos */
-            padding: 0 0.5rem; /* Un poco de padding lateral interno */
-            
-            /* Scroll suave si el contenido es muy largo */
+            text-align: left;
+            padding: 0 0.5rem;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: var(--color-gold) transparent;
         }
 
-        /* Estilos personalizados para el scroll en Webkit (Chrome/Safari) */
         .month-message::-webkit-scrollbar {
             width: 6px;
         }
@@ -263,18 +252,16 @@
             border-radius: 20px;
         }
 
-        /* Estado Desbloqueado: El mensaje se hace visible y permite crecer */
+        /* Estado Desbloqueado */
         .month-card.unlocked .month-message {
             opacity: 1;
             visibility: visible;
-            /* Altura máxima para que aparezca scroll si supera las tarjetas vecinas */
             max-height: 350px; 
             margin-top: 1.5rem;
             padding-top: 1rem;
             padding-bottom: 0.5rem;
             border-top: 1px dashed rgba(212,175,55,0.4);
         }
-        /* ========================================== */
 
         /* Estado Bloqueado */
         .month-card.locked {
@@ -362,7 +349,7 @@
             overflow: hidden;
             transition: var(--transition-smooth);
             position: relative;
-            opacity: 0; /* Para animación scroll */
+            opacity: 0;
             transform: translateY(30px);
             display: flex;
             flex-direction: column;
@@ -394,10 +381,9 @@
             text-align: center;
         }
 
-        /* Contenedor responsivo para Iframe (16:9) */
         .iframe-wrapper {
             position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             border-radius: 10px;
@@ -507,7 +493,6 @@
             .game-container { padding: 2rem 1rem; }
             .hero h1 { margin-top: 2rem; }
             .month-card.unlocked .month-message {
-                /* En móvil permitimos que crezca más si es necesario */
                 max-height: 400px; 
             }
         }
@@ -571,11 +556,12 @@
     <!-- LÍNEA DE TIEMPO / CALENDARIO SECRETO -->
     <section class="timeline reveal">
         <h2>Nuestro Camino de Aprendizaje</h2>
-        <p style="text-align:center; margin-bottom:2rem; color: var(--color-gold); font-style:italic;">(Los secretos se revelan únicamente el día 16 de cada mes)</p>
+        <p style="text-align:center; margin-bottom:2rem; color: var(--color-gold); font-style:italic;">(Los secretos se desbloquean el día 16 de cada mes)</p>
         
         <div class="timeline-grid" id="timelineGrid">
             
             <!-- Mes 1 -->
+            <!-- IMPORTANTE: Si quieres probar esto HOY, cambia el año en data-date al año actual -->
             <div class="month-card" data-date="2026-01-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">🌱</span>
@@ -688,7 +674,6 @@
 
     <script>
         // ==================== CONFIGURACIÓN DE VIDEOS YOUTUBE ====================
-        // Aquí centralizamos los datos para facilitar el mantenimiento
         const videoData = [
             {
                 id: '68GiuRao2_w',
@@ -726,7 +711,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             createPetals();
             initYouTubeGallery();
-            checkCalendarStatus();
+            checkCalendarStatus(); // Lógica actualizada aquí
             initScrollReveal();
             setupGame();
         });
@@ -752,7 +737,7 @@
             
             videoData.forEach(vid => {
                 const card = document.createElement('div');
-                card.className = 'video-card reveal-video'; // Clase para animación
+                card.className = 'video-card reveal-video';
                 
                 card.innerHTML = `
                     <div class="video-card-inner">
@@ -771,7 +756,6 @@
                 grid.appendChild(card);
             });
 
-            // Iniciar observer para los videos generados
             observeVideoCards();
         }
 
@@ -783,7 +767,7 @@
                         setTimeout(() => {
                             entry.target.classList.add('active');
                         }, Math.random() * 300);
-                        observer.unobserve(entry.target); // Solo animar una vez
+                        observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
@@ -791,46 +775,62 @@
             cards.forEach(card => observer.observe(card));
         }
 
-        // =================--- CALENDARIO SECRETO (FECHA EXACTA) ====================
+        // =================--- CALENDARIO SECRETO (LÓGICA ACTUALIZADA) ====================
         function checkCalendarStatus() {
             const today = new Date();
-            // Formateamos hoy a YYYY-MM-DD para comparar strings fácilmente
-            // Usamos UTC para evitar problemas de zona horaria al medianoche
-            const yyyy = today.getUTCFullYear();
-            const mm = String(today.getUTCMonth() + 1).padStart(2, '0'); // Meses 0-11
-            const dd = String(today.getUTCDate()).padStart(2, '0');
-            const todayString = `${yyyy}-${mm}-${dd}`;
+            const currentYear = today.getFullYear();
+            const currentMonth = today.getMonth(); // 0-11 (Enero es 0)
+            const currentDay = today.getDate();
 
             const cards = document.querySelectorAll('.month-card');
 
             cards.forEach(card => {
-                // Obtenemos la fecha específica del atributo data-date (ej: "2026-01-16")
-                const cardDate = card.getAttribute('data-date');
+                const dateStr = card.getAttribute('data-date');
+                const cardDate = new Date(dateStr);
+                const cardYear = cardDate.getFullYear();
+                const cardMonth = cardDate.getMonth();
                 
-                // Comprobamos si la fecha de la tarjeta es EXACTAMENTE igual a hoy
-                const isRightDay = (todayString === cardDate);
+                // Lógica de desbloqueo "Para siempre" a partir del día 16
+                let isUnlocked = false;
 
-                if (!isRightDay) {
-                    // Si NO es el día correcto, bloquear
-                    card.classList.add('locked');
+                if (currentYear > cardYear) {
+                    // Si el año actual es mayor que el de la tarjeta (año pasado), desbloquear
+                    isUnlocked = true;
+                } else if (currentYear === cardYear) {
+                    // Si estamos en el mismo año
+                    if (currentMonth > cardMonth) {
+                        // Si el mes actual es posterior al de la tarjeta, desbloquear
+                        isUnlocked = true;
+                    } else if (currentMonth === cardMonth) {
+                        // Si es el mismo mes, verificar si es día 16 o posterior
+                        if (currentDay >= 16) {
+                            isUnlocked = true;
+                        }
+                    }
+                }
+
+                // Aplicar estados según la lógica
+                if (isUnlocked) {
+                    card.classList.remove('locked');
+                    // Añadimos la clase unlocked para mostrar el contenido por defecto
+                    card.classList.add('unlocked');
                     
-                    // Prevenir comportamientos por defecto y mostrar mensaje suave
-                    card.addEventListener('click', function(e) {
-                        e.stopPropagation(); 
-                        // Pequeña animación de "negación" si intentan hacer clic
+                    // Permitir cerrar y volver a abrir con clic
+                    card.onclick = function() {
+                        this.classList.toggle('unlocked');
+                    };
+                } else {
+                    // Bloquear
+                    card.classList.add('locked');
+                    card.classList.remove('unlocked');
+                    
+                    // Animación de negación al hacer clic
+                    card.onclick = function(e) {
+                        e.stopPropagation();
                         this.style.transform = "translateX(5px)";
                         setTimeout(() => this.style.transform = "translateX(-5px)", 100);
                         setTimeout(() => this.style.transform = "none", 200);
-                    });
-                } else {
-                    // SI es el día exacto, desbloquear
-                    card.classList.remove('locked');
-                    card.classList.add('unlocked');
-                    
-                    // Permitir expandir/colapsar al hacer clic
-                    card.addEventListener('click', function() {
-                        this.classList.toggle('unlocked');
-                    });
+                    };
                 }
             });
         }
