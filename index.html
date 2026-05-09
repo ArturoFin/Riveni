@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* ==================== VARIABLES CSS ==================== */
         :root {
             --color-gold: #D4AF37;
             --color-yellow: #FFD700;
@@ -21,12 +20,7 @@
             --transition-smooth: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* ==================== RESET Y BASE ==================== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: var(--font-body);
@@ -37,13 +31,170 @@
             min-height: 100vh;
         }
 
-        /* ==================== PÉTALOS FLOTANTES ==================== */
+        /* ==================== POPUP OVERLAY ==================== */
+        .popup-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.75);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInOverlay 0.4s ease;
+        }
+
+        @keyframes fadeInOverlay {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .popup-box {
+            background: linear-gradient(135deg, #2C2416, #3d2f1f);
+            border: 3px solid var(--color-gold);
+            border-radius: 24px;
+            padding: 2.5rem 2rem 2rem;
+            max-width: 520px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 0 60px rgba(212,175,55,0.5);
+            animation: popupBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        @keyframes popupBounce {
+            0% { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+            80% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .popup-icon {
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+            display: block;
+            animation: bounce 1s ease-in-out infinite alternate;
+        }
+
+        @keyframes bounce {
+            from { transform: translateY(0); }
+            to { transform: translateY(-8px); }
+        }
+
+        .popup-box h2 {
+            font-family: var(--font-title);
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            background: linear-gradient(45deg, var(--color-gold), var(--color-yellow), var(--color-sunset));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .popup-tagline {
+            font-size: 0.95rem;
+            color: var(--color-cream);
+            opacity: 0.8;
+            margin-bottom: 1.8rem;
+            font-style: italic;
+        }
+
+        /* Schedule Table inside popup */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1.8rem;
+            border-radius: 14px;
+            overflow: hidden;
+        }
+
+        .schedule-table thead tr {
+            background: linear-gradient(90deg, var(--color-gold), var(--color-yellow));
+        }
+
+        .schedule-table thead th {
+            color: #2C2416;
+            font-family: var(--font-title);
+            font-size: 0.9rem;
+            padding: 0.7rem 1rem;
+            text-align: left;
+            font-weight: 700;
+        }
+
+        .schedule-table tbody tr {
+            border-bottom: 1px solid rgba(212,175,55,0.2);
+            transition: background 0.3s;
+        }
+
+        .schedule-table tbody tr:last-child { border-bottom: none; }
+
+        .schedule-table tbody tr:nth-child(odd) {
+            background: rgba(212,175,55,0.08);
+        }
+
+        .schedule-table tbody tr:nth-child(even) {
+            background: rgba(212,175,55,0.04);
+        }
+
+        .schedule-table tbody tr:hover {
+            background: rgba(212,175,55,0.18);
+        }
+
+        .schedule-table td {
+            padding: 0.75rem 1rem;
+            font-size: 0.88rem;
+            color: var(--color-cream);
+            vertical-align: middle;
+        }
+
+        .badge-confirmed {
+            background: linear-gradient(90deg, var(--color-gold), var(--color-yellow));
+            color: #2C2416;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .badge-pending {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(212,175,55,0.4);
+            color: rgba(255,248,220,0.6);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 0.75rem;
+            font-style: italic;
+            display: inline-block;
+        }
+
+        .popup-close-btn {
+            background: linear-gradient(135deg, var(--color-gold), var(--color-yellow));
+            border: none;
+            color: #2C2416;
+            font-family: var(--font-title);
+            font-size: 1rem;
+            font-weight: 700;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(212,175,55,0.4);
+        }
+
+        .popup-close-btn:hover {
+            transform: scale(1.06);
+            box-shadow: 0 6px 30px rgba(212,175,55,0.6);
+        }
+
+        .popup-close-btn:active {
+            transform: scale(0.97);
+        }
+
+        /* ==================== FLOATING PETALS ==================== */
         .petals-container {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
             overflow: hidden;
@@ -51,8 +202,7 @@
 
         .petal {
             position: absolute;
-            width: 15px;
-            height: 15px;
+            width: 15px; height: 15px;
             background: radial-gradient(ellipse at center, var(--color-yellow) 0%, var(--color-gold) 100%);
             border-radius: 50% 0 50% 0;
             opacity: 0.7;
@@ -81,8 +231,7 @@
 
         .hero-sunflower {
             position: absolute;
-            width: 300px;
-            height: 300px;
+            width: 300px; height: 300px;
             animation: rotate3d 20s linear infinite;
             opacity: 0.15;
             filter: blur(2px);
@@ -102,7 +251,6 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             margin-bottom: 1rem;
-            text-shadow: 0 0 40px rgba(255,215,0,0.3);
             animation: titleGlow 3s ease-in-out infinite;
         }
 
@@ -128,25 +276,22 @@
             font-style: italic;
         }
 
-        /* ==================== REPRODUCTOR DE MÚSICA ==================== */
         .music-player {
             margin-top: 2rem;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255,255,255,0.05);
             backdrop-filter: blur(10px);
             border: 2px solid var(--color-gold);
             border-radius: 20px;
             padding: 1.5rem;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 8px 32px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 32px rgba(212,175,55,0.3);
             transition: var(--transition-smooth);
         }
 
-        .music-player:hover {
-            transform: translateY(-5px) scale(1.02);
-        }
+        .music-player:hover { transform: translateY(-5px) scale(1.02); }
 
-        /* ==================== LÍNEA DE TIEMPO (CALENDARIO SEGURO) ==================== */
+        /* ==================== TIMELINE ==================== */
         .timeline {
             padding: 5rem 2rem;
             position: relative;
@@ -190,25 +335,17 @@
         .month-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
             background: radial-gradient(circle, rgba(255,215,0,0.3) 0%, transparent 70%);
             opacity: 0;
             transition: opacity 0.5s;
             pointer-events: none;
         }
 
-        .month-card:hover::before {
-            opacity: 1;
-        }
+        .month-card:hover::before { opacity: 1; }
 
-        .month-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            display: block;
-        }
+        .month-icon { font-size: 3rem; margin-bottom: 1rem; display: block; }
 
         .month-card h3 {
             font-family: var(--font-title);
@@ -217,17 +354,12 @@
             margin-bottom: 0.5rem;
         }
 
-        .month-subtitle {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            margin-bottom: 1rem;
-        }
+        .month-subtitle { font-size: 0.9rem; opacity: 0.7; margin-bottom: 1rem; }
 
-        /* ESTILOS MENSAJE LARGO */
         .month-message {
             width: 100%;
             max-width: 100%;
-            opacity: 0; 
+            opacity: 0;
             visibility: hidden;
             max-height: 0;
             transition: all 0.6s ease;
@@ -241,46 +373,31 @@
             scrollbar-color: var(--color-gold) transparent;
         }
 
-        .month-message::-webkit-scrollbar {
-            width: 6px;
-        }
-        .month-message::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.1);
-        }
-        .month-message::-webkit-scrollbar-thumb {
-            background-color: var(--color-gold);
-            border-radius: 20px;
-        }
+        .month-message::-webkit-scrollbar { width: 6px; }
+        .month-message::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
+        .month-message::-webkit-scrollbar-thumb { background-color: var(--color-gold); border-radius: 20px; }
 
-        /* Estado Desbloqueado */
         .month-card.unlocked .month-message {
             opacity: 1;
             visibility: visible;
-            max-height: 350px; 
+            max-height: 350px;
             margin-top: 1.5rem;
             padding-top: 1rem;
             padding-bottom: 0.5rem;
             border-top: 1px dashed rgba(212,175,55,0.4);
         }
 
-        /* Estado Bloqueado */
         .month-card.locked {
             filter: blur(3px) grayscale(0.8);
             cursor: not-allowed;
         }
-        
-        .month-card.locked:hover {
-            transform: none;
-            box-shadow: none;
-        }
 
-        /* Overlay del Candado */
+        .month-card.locked:hover { transform: none; box-shadow: none; }
+
         .lock-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -292,24 +409,11 @@
             transition: opacity 0.3s;
         }
 
-        .month-card.locked .lock-overlay {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        .month-card.locked .lock-overlay { opacity: 1; pointer-events: auto; }
+        .lock-icon { font-size: 2.5rem; color: var(--color-gold); margin-bottom: 0.5rem; }
+        .lock-text { font-family: var(--font-title); color: #fff; font-size: 1.1rem; }
 
-        .lock-icon {
-            font-size: 2.5rem;
-            color: var(--color-gold);
-            margin-bottom: 0.5rem;
-        }
-
-        .lock-text {
-            font-family: var(--font-title);
-            color: #fff;
-            font-size: 1.1rem;
-        }
-
-        /* ==================== GALERÍA DE YOUTUBE ==================== */
+        /* ==================== VIDEO GALLERY ==================== */
         .video-gallery {
             padding: 5rem 2rem;
             text-align: center;
@@ -330,7 +434,7 @@
             margin: 0 auto 4rem auto;
             font-size: 1.1rem;
             line-height: 1.8;
-            color: rgba(255, 248, 220, 0.9);
+            color: rgba(255,248,220,0.9);
         }
 
         .videos-grid {
@@ -355,14 +459,11 @@
             flex-direction: column;
         }
 
-        .video-card.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .video-card.active { opacity: 1; transform: translateY(0); }
 
         .video-card:hover {
             transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 50px rgba(212,175,55,0.4);
             border-color: var(--color-yellow);
         }
 
@@ -394,10 +495,8 @@
 
         .iframe-wrapper iframe {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             border: 0;
         }
 
@@ -410,7 +509,7 @@
             font-size: 0.95rem;
         }
 
-        /* ==================== JUEGO PIEDRA, PAPEL O TIJERA ==================== */
+        /* ==================== GAME SECTION ==================== */
         .game-section {
             padding: 5rem 2rem;
             text-align: center;
@@ -434,7 +533,7 @@
             border: 3px solid var(--color-gold);
             border-radius: 30px;
             padding: 3rem;
-            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 20px 60px rgba(212,175,55,0.3);
         }
 
         .game-choices {
@@ -446,20 +545,17 @@
         }
 
         .choice-btn {
-            width: 120px;
-            height: 120px;
+            width: 120px; height: 120px;
             font-size: 3rem;
             background: linear-gradient(135deg, var(--color-gold), var(--color-yellow));
             border: none;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 20px rgba(212,175,55,0.4);
         }
 
-        .choice-btn:hover {
-            transform: translateY(-10px) scale(1.1);
-        }
+        .choice-btn:hover { transform: translateY(-10px) scale(1.1); }
 
         .game-result {
             margin-top: 2rem;
@@ -492,9 +588,9 @@
             .choice-btn { width: 90px; height: 90px; font-size: 2rem; }
             .game-container { padding: 2rem 1rem; }
             .hero h1 { margin-top: 2rem; }
-            .month-card.unlocked .month-message {
-                max-height: 400px; 
-            }
+            .month-card.unlocked .month-message { max-height: 400px; }
+            .popup-box { padding: 2rem 1.2rem 1.5rem; }
+            .schedule-table td, .schedule-table th { font-size: 0.78rem; padding: 0.6rem 0.6rem; }
         }
 
         .reveal {
@@ -503,14 +599,60 @@
             transition: all 0.8s ease-out;
         }
 
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    <!-- Contenedor de pétalos flotantes -->
+
+    <!-- ==================== POPUP MODAL ==================== -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <span class="popup-icon">🗺️</span>
+            <h2>¡Cronogramas de Visita Silenciosa en Huancayo! XD</h2>
+            <p class="popup-tagline">Misión secreta activada 🕵️‍♀️ — shhh, nadie sabe nada...</p>
+
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>📅 Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1ra visita</td>
+                        <td><strong>16 de Mayo</strong></td>
+                        <td><span class="badge-confirmed">✓ Confirmada</span></td>
+                    </tr>
+                    <tr>
+                        <td>2da visita</td>
+                        <td>Por definir...</td>
+                        <td><span class="badge-pending">PRÓXIMAMENTE JAJA</span></td>
+                    </tr>
+                    <tr>
+                        <td>3ra visita</td>
+                        <td>Por definir...</td>
+                        <td><span class="badge-pending">PRÓXIMAMENTE JAJA</span></td>
+                    </tr>
+                    <tr>
+                        <td>4ta visita</td>
+                        <td>Por definir...</td>
+                        <td><span class="badge-pending">PRÓXIMAMENTE JAJA</span></td>
+                    </tr>
+                    <tr>
+                        <td>5ta visita</td>
+                        <td>Por definir...</td>
+                        <td><span class="badge-pending">PRÓXIMAMENTE JAJA</span></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <button class="popup-close-btn" onclick="closePopup()">🌻 ¡Entendido, complicidad activada!</button>
+        </div>
+    </div>
+
+    <!-- Pétalos flotantes -->
     <div class="petals-container" id="petalsContainer"></div>
 
     <!-- HERO SECTION -->
@@ -532,13 +674,10 @@
         <p>Como los girasoles siguen al sol, mi corazón te sigue a ti</p>
         <p class="hero-subtitle">y juntos, transformamos datos en arte.</p>
         
-        <!-- REPRODUCTOR DE VIDEO LO-FI -->
         <div class="music-player">
             <h3>🎵 Música para Concentrarnos</h3>
             <div style="padding: 0.5rem; text-align: center; color: var(--color-cream);">
                 <p style="margin-bottom: 0.5rem;">🎧 Ponte tus audífonos favoritos...</p>
-                
-                <!-- Contenedor del Video YouTube (ID: j8ORvKikKMY) -->
                 <div class="iframe-wrapper" style="border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
                     <iframe 
                         src="https://www.youtube.com/embed/j8ORvKikKMY?autoplay=0&mute=0&loop=1&playlist=j8ORvKikKMY&controls=1&showinfo=0" 
@@ -552,16 +691,12 @@
         </div>
     </section>
 
-
-    <!-- LÍNEA DE TIEMPO / CALENDARIO SECRETO -->
+    <!-- LÍNEA DE TIEMPO -->
     <section class="timeline reveal">
         <h2>Nuestro Camino de Aprendizaje</h2>
         <p style="text-align:center; margin-bottom:2rem; color: var(--color-gold); font-style:italic;">(Los secretos se desbloquean el día 16 de cada mes)</p>
         
         <div class="timeline-grid" id="timelineGrid">
-            
-            <!-- Mes 1 -->
-            <!-- IMPORTANTE: Si quieres probar esto HOY, cambia el año en data-date al año actual -->
             <div class="month-card" data-date="2026-01-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">🌱</span>
@@ -576,7 +711,6 @@
                 </div>
             </div>
 
-            <!-- Mes 2 -->
             <div class="month-card" data-date="2026-02-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">📊</span>
@@ -587,7 +721,6 @@
                 </div>
             </div>
 
-            <!-- Mes 3 -->
             <div class="month-card" data-date="2026-03-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">🔗</span>
@@ -598,7 +731,6 @@
                 </div>
             </div>
 
-            <!-- Mes 4 -->
             <div class="month-card" data-date="2026-04-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">⚡</span>
@@ -609,7 +741,6 @@
                 </div>
             </div>
             
-            <!-- Mes 5 -->
             <div class="month-card" data-date="2026-05-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">🌸</span>
@@ -620,7 +751,6 @@
                 </div>
             </div>
 
-            <!-- Mes 6 -->
             <div class="month-card" data-date="2026-06-16">
                 <div class="lock-overlay"><span class="lock-icon">🗝️</span><span class="lock-text">Espera el 16</span></div>
                 <span class="month-icon">☀️</span>
@@ -633,17 +763,14 @@
         </div>
     </section>
 
-    <!-- GALERÍA DE VIDEOS POWER BI (YOUTUBE) -->
+    <!-- GALERÍA DE VIDEOS POWER BI -->
     <section class="video-gallery reveal">
         <h2>Tu Colección de Clases</h2>
         <p class="gallery-intro">
             Aquí tienes las 6 lecciones esenciales. He preparado esta selección especial para que domines Power BI paso a paso.
             Cada video es una puerta hacia un nuevo nivel de conocimiento.
         </p>
-        
-        <div class="videos-grid" id="youtubeGrid">
-            <!-- Los videos se generan dinámicamente vía JS para limpiar el HTML -->
-        </div>
+        <div class="videos-grid" id="youtubeGrid"></div>
     </section>
 
     <!-- JUEGO PIEDRA, PAPEL O TIJERA -->
@@ -673,55 +800,40 @@
     </section>
 
     <script>
-        // ==================== CONFIGURACIÓN DE VIDEOS YOUTUBE ====================
+        // ==================== POPUP ====================
+        function closePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            overlay.style.transition = 'opacity 0.4s ease';
+            overlay.style.opacity = '0';
+            setTimeout(() => { overlay.style.display = 'none'; }, 400);
+        }
+
+        // Cerrar también haciendo clic fuera del cuadro
+        document.getElementById('popupOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closePopup();
+        });
+
+        // ==================== VIDEOS ====================
         const videoData = [
-            {
-                id: '68GiuRao2_w',
-                title: '1. Bienvenida a Power BI',
-                desc: 'Comienza aquí el viaje. Una introducción suave para familiarizarte con el entorno.'
-            },
-            {
-                id: 'kY0_pVLqV84',
-                title: '2. Cargando tus Datos',
-                desc: 'Aprende a importar Excel y transformar la información cruda.'
-            },
-            {
-                id: '_0WymNM3gFY',
-                title: '3. Creando tu Primera Tabla',
-                desc: 'Organiza la información de manera clara y ordenada.'
-            },
-            {
-                id: 'ZDc-LWJd-1Q',
-                title: '4. Gráficos de Barras',
-                desc: 'Comparando categorías con visualizaciones impactantes.'
-            },
-            {
-                id: 'ZtJedYaZLII',
-                title: '5. Segmentadores (Slicers)',
-                desc: 'Dale interactividad a tu dashboard para explorar los datos.'
-            },
-            {
-                id: 'cBJqv6xE-o8',
-                title: '6. Publicación y Compartir',
-                desc: 'El paso final para mostrar tu trabajo al mundo.'
-            }
+            { id: '68GiuRao2_w', title: '1. Bienvenida a Power BI', desc: 'Comienza aquí el viaje. Una introducción suave para familiarizarte con el entorno.' },
+            { id: 'kY0_pVLqV84', title: '2. Cargando tus Datos', desc: 'Aprende a importar Excel y transformar la información cruda.' },
+            { id: '_0WymNM3gFY', title: '3. Creando tu Primera Tabla', desc: 'Organiza la información de manera clara y ordenada.' },
+            { id: 'ZDc-LWJd-1Q', title: '4. Gráficos de Barras', desc: 'Comparando categorías con visualizaciones impactantes.' },
+            { id: 'ZtJedYaZLII', title: '5. Segmentadores (Slicers)', desc: 'Dale interactividad a tu dashboard para explorar los datos.' },
+            { id: 'cBJqv6xE-o8', title: '6. Publicación y Compartir', desc: 'El paso final para mostrar tu trabajo al mundo.' }
         ];
 
-        // ==================== FUNCIÓN DE INICIO ====================
         document.addEventListener('DOMContentLoaded', function() {
             createPetals();
             initYouTubeGallery();
-            checkCalendarStatus(); // Lógica actualizada aquí
+            checkCalendarStatus();
             initScrollReveal();
             setupGame();
         });
 
-        // =================--- PÉTALOS ====================
         function createPetals() {
             const container = document.getElementById('petalsContainer');
-            const petalCount = 30;
-
-            for (let i = 0; i < petalCount; i++) {
+            for (let i = 0; i < 30; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
                 petal.style.left = Math.random() * 100 + '%';
@@ -731,31 +843,21 @@
             }
         }
 
-        // =================--- GESTIÓN DE YOUTUBE ====================
         function initYouTubeGallery() {
             const grid = document.getElementById('youtubeGrid');
-            
             videoData.forEach(vid => {
                 const card = document.createElement('div');
                 card.className = 'video-card reveal-video';
-                
                 card.innerHTML = `
                     <div class="video-card-inner">
                         <h4>${vid.title}</h4>
                         <div class="iframe-wrapper">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${vid.id}?rel=0" 
-                                title="YouTube video player" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen>
-                            </iframe>
+                            <iframe src="https://www.youtube.com/embed/${vid.id}?rel=0" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         </div>
                         <p class="video-description">${vid.desc}</p>
-                    </div>
-                `;
+                    </div>`;
                 grid.appendChild(card);
             });
-
             observeVideoCards();
         }
 
@@ -764,24 +866,19 @@
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        setTimeout(() => {
-                            entry.target.classList.add('active');
-                        }, Math.random() * 300);
+                        setTimeout(() => { entry.target.classList.add('active'); }, Math.random() * 300);
                         observer.unobserve(entry.target);
                     }
                 });
             }, { threshold: 0.1 });
-
             cards.forEach(card => observer.observe(card));
         }
 
-        // =================--- CALENDARIO SECRETO (LÓGICA ACTUALIZADA) ====================
         function checkCalendarStatus() {
             const today = new Date();
             const currentYear = today.getFullYear();
-            const currentMonth = today.getMonth(); // 0-11 (Enero es 0)
+            const currentMonth = today.getMonth();
             const currentDay = today.getDate();
-
             const cards = document.querySelectorAll('.month-card');
 
             cards.forEach(card => {
@@ -789,42 +886,25 @@
                 const cardDate = new Date(dateStr);
                 const cardYear = cardDate.getFullYear();
                 const cardMonth = cardDate.getMonth();
-                
-                // Lógica de desbloqueo "Para siempre" a partir del día 16
                 let isUnlocked = false;
 
                 if (currentYear > cardYear) {
-                    // Si el año actual es mayor que el de la tarjeta (año pasado), desbloquear
                     isUnlocked = true;
                 } else if (currentYear === cardYear) {
-                    // Si estamos en el mismo año
                     if (currentMonth > cardMonth) {
-                        // Si el mes actual es posterior al de la tarjeta, desbloquear
                         isUnlocked = true;
-                    } else if (currentMonth === cardMonth) {
-                        // Si es el mismo mes, verificar si es día 16 o posterior
-                        if (currentDay >= 16) {
-                            isUnlocked = true;
-                        }
+                    } else if (currentMonth === cardMonth && currentDay >= 16) {
+                        isUnlocked = true;
                     }
                 }
 
-                // Aplicar estados según la lógica
                 if (isUnlocked) {
                     card.classList.remove('locked');
-                    // Añadimos la clase unlocked para mostrar el contenido por defecto
                     card.classList.add('unlocked');
-                    
-                    // Permitir cerrar y volver a abrir con clic
-                    card.onclick = function() {
-                        this.classList.toggle('unlocked');
-                    };
+                    card.onclick = function() { this.classList.toggle('unlocked'); };
                 } else {
-                    // Bloquear
                     card.classList.add('locked');
                     card.classList.remove('unlocked');
-                    
-                    // Animación de negación al hacer clic
                     card.onclick = function(e) {
                         e.stopPropagation();
                         this.style.transform = "translateX(5px)";
@@ -835,27 +915,19 @@
             });
         }
 
-        // =================--- SCROLL REVEAL GENERAL ====================
         function initScrollReveal() {
             const reveals = document.querySelectorAll('.reveal');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
-                });
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
             }, { threshold: 0.1 });
-
             reveals.forEach(el => observer.observe(el));
         }
 
-        // =================--- JUEGO ====================
         function setupGame() {
             const choices = document.querySelectorAll('.choice-btn');
             const resultDiv = document.getElementById('gameResult');
             const easterEgg = document.getElementById('easterEgg');
             let hasWon = false;
-
             const winningMoves = { 'rock': 'scissors', 'paper': 'rock', 'scissors': 'paper' };
             const emojis = { 'rock': '✊', 'paper': '✋', 'scissors': '✌️' };
 
@@ -864,26 +936,15 @@
                     const playerChoice = this.dataset.choice;
                     choices.forEach(btn => btn.style.pointerEvents = 'none');
                     resultDiv.innerHTML = '🤔 Pensando...';
-                    
                     setTimeout(() => {
-                        const aiChoice = winningMoves[playerChoice]; // IA pierde siempre
-                        
+                        const aiChoice = winningMoves[playerChoice];
                         resultDiv.innerHTML = `
                             <div style="display: flex; flex-direction: column; gap: 1rem; align-items: center;">
-                                <div style="font-size: 2rem;">
-                                    Tú: ${emojis[playerChoice]} vs IA: ${emojis[aiChoice]}
-                                </div>
-                                <div style="color: var(--color-yellow); font-size: 2rem;">
-                                    ✨ ¡GANASTE! ✨
-                                </div>
-                            </div>
-                        `;
-                        
+                                <div style="font-size: 2rem;">Tú: ${emojis[playerChoice]} vs IA: ${emojis[aiChoice]}</div>
+                                <div style="color: var(--color-yellow); font-size: 2rem;">✨ ¡GANASTE! ✨</div>
+                            </div>`;
                         if (!hasWon) {
-                            setTimeout(() => {
-                                easterEgg.classList.add('show');
-                                hasWon = true;
-                            }, 1000);
+                            setTimeout(() => { easterEgg.style.display = 'block'; hasWon = true; }, 1000);
                         }
                         choices.forEach(btn => btn.style.pointerEvents = 'auto');
                     }, 1500);
